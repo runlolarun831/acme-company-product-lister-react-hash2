@@ -3,11 +3,28 @@
   <head>
     <style>
     </style>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" crossorigin></script>
       <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
       <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   </head>
   <body>
+    <div id='root'></div>
     <script>
+      const API = 'https://acme-users-api-rev.herokuapp.com/'
+      const { render } = ReactDOM;
+      const { createElement, Component } = React;
+
+      class App extends Component{
+        constructor(){
+          super();
+          
+        }
+        render(){
+          return null;
+        }
+      }
+      const root = document.querySelector('#root');
+      render(createElement(App), root);
     </script>
   </body>
 </html>
