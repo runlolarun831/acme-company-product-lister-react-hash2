@@ -27,13 +27,12 @@
         componentDidMount() {
           Promise.all([axios.get(API+'companies'),axios.get(API+'products') ])
           .then(responses => responses.map( response => response.data))
-          .then( data => {
+          .then( ([companies, products]) => {
             this.setState({ companies, products });
             console.log(this.state);
           })
 
         }
-
 
         render(){
           const { companies, products, view } = this.state;
@@ -46,7 +45,6 @@
           if( view === 'products'){
             chosenView = React.createElement(ProductList, { products });
           }
-
           return React.createElement('div', null, nav, chosenView);
         }
       }
