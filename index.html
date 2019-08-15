@@ -10,17 +10,44 @@
   <body>
     <div id='root'></div>
     <script>
-      const API = 'https://acme-users-api-rev.herokuapp.com/'
+      const API = 'https://acme-users-api-rev.herokuapp.com/api/'
       const { render } = ReactDOM;
       const { createElement, Component } = React;
 
       class App extends Component{
         constructor(){
           super();
-          
+          this.state = {
+            companies: [],
+            products: [],
+            view: window.location.hash.slice(1)
+          }
+
         }
+        componentDidMount() {
+          Promise.all([axios.get(API+'companies'),axios.get(API+'products') ])
+          .then(responses => responses.map( response => response.data))
+          .then( data => {
+            this.setState({ companies, products });
+            console.log(this.state);
+          })
+
+        }
+
+
         render(){
-          return null;
+          const { companies, products, view } = this.state;
+          //const nav = React.createElement(Nav, { companies, products,view} );
+          let chosenView;
+          let nav;
+          if( view === 'companies'){
+            chosenView = React.createElement(CompanyList, { companies });
+          }
+          if( view === 'products'){
+            chosenView = React.createElement(ProductList, { products });
+          }
+
+          return React.createElement('div', null, nav, chosenView);
         }
       }
       const root = document.querySelector('#root');
